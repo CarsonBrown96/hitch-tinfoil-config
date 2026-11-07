@@ -7,6 +7,8 @@ memory: 8192
 containers:
   - name: "hitch-aggregator"
     image: "ghcr.io/carsonbrown96/hitch-aggregator@sha256:22f677b3a7c41326ec43ceaaf032af1ed30ade9a3f31b8bf4b97eae830dfbbbd"
+    ports:
+      - "8080:8080"
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/attest')"]
       interval: 10s
