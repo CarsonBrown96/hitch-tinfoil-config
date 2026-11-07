@@ -5,12 +5,13 @@ cpus: 2
 memory: 8192
 
 containers:
-  - name: "hello-world"
-    image: "ghcr.io/tinfoilsh/tinfoil-containers-hello-world@sha256:c943b1cab16409e2e686ad71deab30364c27421852cdd6b3080df1c7a38331ed"
-    env:
-      - MESSAGE: "Hello from Tinfoil"
-    secrets:
-      - GREETING_TOKEN
+  - name: "hitch-aggregator"
+    image: "ghcr.io/carsonbrown96/hitch-aggregator@sha256:6b58cb580202f54d2de674af0761f892d365507f659ae8aa2a5098c738a30b20"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/attest')"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
 
 shim:
   upstream-port: 8080
